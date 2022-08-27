@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+    
+<section id="container">
+    {% for item in item_list %}
+        <a class="article-a" href="{% url 'listing_info' item.pk %}">
+        <div href="" class="article">
+
+            <div style="background-image: url('{{ item.image }}');" class="article-image"></div>
+
+            <div class="article-text">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}<br><span class="price-tag">$ {{ item.price }}</span><br>Class: {{ item.category }}</p>
+
+                <form action="{% url 'delete_watchlist' item.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger btn-sm" type="submit">Delete from watchlist</button> <br><br>
+                </form>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+</section>
+{% endblock %}

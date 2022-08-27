@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Active Listings</h2>
+
+<section id="container">
+    {% for item in item_list %}
+        {% if item.auction_open %}
+        <a class="article-a" href="{% url 'listing_info' item.pk %}">
+            <div href="" class="article">
+
+                <div style="background-image: url('{{ item.image }}');" class="article-image"></div>
+
+                <div class="article-text">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.description }}<br><span class="price-tag">$ {{ item.price }}</span><br>Class: {{ item.category }}</p>
+                </div>
+            </div>
+        </a>
+        {% elif item.winner == user %}
+        <a class="article-a" href="{% url 'listing_info' item.pk %}">
+            <div href="" class="article">
+
+                <div style="background-image: url('{{ item.image }}');" class="article-image"></div>
+
+                <div class="article-text">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.description }}<br><span class="price-tag">YOU WON THIS AUCTION!</span><br>Class: {{ item.category }}</p>
+                </div>
+            </div>
+        </a>
+        {% endif %}
+    {% endfor %}
+</section>
+
+
+
+{% endblock %}
